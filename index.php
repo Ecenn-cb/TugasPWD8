@@ -54,15 +54,16 @@
 
                 if ($datas->num_rows > 0) {
                     while ($data = $datas->fetch_assoc()) {
-                        echo "<tr>
-                                <td>{$data['nik']}</td>
-                                <td>{$data['nama']}</td>
-                                <td>{$data['tanggal_lahir']}</td>
-                                <td>{$data['uang']}</td>
-                                <td class='aksi'>
-                                    <a href='hapus.php?nik={$data['nik']}' onclick=\"return confirm('Yakin ingin hapus data ini?')\">Hapus</a>
-                                </td>
-                            </tr>";
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($data['nik']) . "</td>";
+                        echo "<td>" . htmlspecialchars($data['nama']) . "</td>";
+                        echo "<td>" . htmlspecialchars($data['tanggal_lahir']) . "</td>";
+                        echo "<td>Rp " . number_format((int)$data['uang'], 0, ',', '.') . "</td>";
+                        echo "<td class='aksi'>
+                                <a href='hapus.php?nik=" . urlencode($data['nik']) . "' onclick=\"return confirm('Yakin ingin hapus data ini?')\">Hapus</a> |
+                                <a href='edit.php?nik=" . urlencode($data['nik']) . "'>Edit</a>
+                            </td>";
+                        echo "</tr>";
                     }
                 } else {
                     echo "<tr><td colspan='5' style='text-align:center;'>Tidak ada data</td></tr>";
